@@ -1,5 +1,7 @@
-package br.com.bertol.model;
+package br.com.bertol.search;
 
+import br.com.bertol.model.Airport;
+import br.com.bertol.model.Routes;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -32,7 +34,7 @@ public class RouteCalculatorTest {
 
         // when
         final var bestRoutes = routeCalculator
-                .calculateBestRoutesFromSource(routes, routes.getAirportByName(CWB).get());
+                .calculateBestRoutesFromSource(routes.getAirportByName(CWB).get());
 
         // then
         final var shortestPathForAirportBrc = Arrays
@@ -44,7 +46,7 @@ public class RouteCalculatorTest {
         final var shortestPathForAirportCdg = Arrays
                 .asList(routes.getAirportByName(CWB).get(), routes.getAirportByName(POA).get(), routes.getAirportByName(BRC).get(), routes.getAirportByName(SCL).get(), routes.getAirportByName(ORL).get());
 
-        for (final var airport : bestRoutes.getAirports()) {
+        for (final var airport : bestRoutes) {
             switch (airport.getName()) {
                 case BRC:
                     assertEquals(airport.getBestRoute(), shortestPathForAirportBrc);

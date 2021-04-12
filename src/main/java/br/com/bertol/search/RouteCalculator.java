@@ -1,12 +1,15 @@
-package br.com.bertol.model;
+package br.com.bertol.search;
+
+import br.com.bertol.model.Airport;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class RouteCalculator {
 
-    public Routes calculateBestRoutesFromSource(final Routes graph, final Airport airport) {
+    public List<Airport> calculateBestRoutesFromSource(final Airport airport) {
         airport.setDistance(0);
 
         final Set<Airport> distanceFullyCalculatedToAdjacentAirports = new HashSet<>();
@@ -27,7 +30,7 @@ public class RouteCalculator {
             }
             distanceFullyCalculatedToAdjacentAirports.add(currentAirport);
         }
-        return graph;
+        return airport.getBestRoute();
     }
 
     private void doCalDistanceToAdjacentAirport(final Airport destinationAirport, final Integer distanceToNextAirport, final Airport originAirport) {

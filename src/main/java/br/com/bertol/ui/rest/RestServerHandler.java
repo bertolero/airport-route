@@ -40,7 +40,7 @@ public class RestServerHandler {
                 final var origin = params.getOrDefault("origin", List.of(noNameText)).stream().findFirst().orElse(noNameText);
                 final var destination = params.getOrDefault("destination", List.of(noNameText)).stream().findFirst().orElse(noNameText);
                 final var respText = this.routeSearcher.searchBestRoute(origin, destination);
-                final var response = new Response(respText.get());
+                final var response = new SearchBestRouteResponse(respText.get());
                 final var responseString = this.objectMapper.writeValueAsString(response);
                 flushStream(exchange, 200, responseString);
             } catch (final Exception e) {
@@ -56,7 +56,7 @@ public class RestServerHandler {
     public void handlerAddNewConnection(final HttpExchange exchange) throws IOException {
         if ("POST".equals(exchange.getRequestMethod())) {
             try {
-                final var params = this.objectMapper.readValue(exchange.getRequestBody(), Input.class);
+                final var params = this.objectMapper.readValue(exchange.getRequestBody(), AddNewConnectionRequest.class);
                 this.airportInclusion.linkOriginAndDestination(params.getOrigin(), params.getDestination(), params.getDistance());
                 final var inputString = this.objectMapper.writeValueAsString(params);
                 flushStream(exchange, 200, inputString);

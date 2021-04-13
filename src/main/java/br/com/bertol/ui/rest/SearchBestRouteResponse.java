@@ -1,9 +1,9 @@
 package br.com.bertol.ui.rest;
 
-public class Response {
+public class SearchBestRouteResponse {
     private final String route;
 
-    public Response(final String route) {
+    public SearchBestRouteResponse(final String route) {
         this.route = route;
     }
 

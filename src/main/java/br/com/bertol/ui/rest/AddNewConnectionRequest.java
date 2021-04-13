@@ -1,6 +1,6 @@
 package br.com.bertol.ui.rest;
 
-public class Input {
+public class AddNewConnectionRequest {
     private String origin;
 
     private String destination;
@@ -33,7 +33,7 @@ public class Input {
 
     @Override
     public String toString() {
-        return "Input{" +
+        return "AddNewConnectionRequest{" +
                 "origin='" + origin + '\'' +
                 ", destination='" + destination + '\'' +
                 ", distance=" + distance +

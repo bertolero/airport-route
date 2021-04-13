@@ -37,11 +37,12 @@ public class WriteRoutesToFile {
             final var originAirport = routes.getAirportByName(origin).get();
             final var destinationAirport = routes.getAirportByName(destination).get();
             final var currentDistance = originAirport.getAdjacentAirports().get(destinationAirport);
-            final var currentConnection = String.format("\n%s,%s,%d", origin, destination, currentDistance);
-            final var newConnection = String.format("\n%s,%s,%d", origin, destination, distance);
+            final var currentConnection = String.format("%s,%s,%d", origin, destination, currentDistance);
+            final var newConnection = String.format("%s,%s,%d", origin, destination, distance);
 
             Files.writeString(path,
-                    Files.readString(path).replace(currentConnection, newConnection),
+                    Files.readString(path, StandardCharsets.UTF_8)
+                            .replace(currentConnection, newConnection),
                     StandardCharsets.UTF_8);
         }
     }

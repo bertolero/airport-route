@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
 public class ReadRoutesFromFileTest {
 
     private final static String INPUT_FILE_NAME = "src/test/resources/input.csv";

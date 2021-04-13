@@ -13,7 +13,7 @@ public class RouteSearcher {
         this.routes = routes;
     }
 
-    public Result getSearchBestRoute(final String origin, final String destination) {
+    public Result searchBestRoute(final String origin, final String destination) {
         // always start a new search as a new search
         routes.clearRoutesToAllAirports();
 

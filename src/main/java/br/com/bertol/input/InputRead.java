@@ -8,16 +8,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class InputReader {
+public class InputRead {
 
     private final String fileName;
 
-    public InputReader(final String fileName) {
+    public InputRead(final String fileName) {
         this.fileName = fileName;
     }
 
     public Routes getRoutes() {
         final var routes = new Routes();
+
+        final var airportInclusion = new AirportInclusion(routes);
 
         final var path = Path.of(new File(this.fileName).toURI());
 
@@ -29,11 +31,7 @@ public class InputReader {
                 validateInputLine(splitLine);
                 return splitLine;
             }).forEachOrdered(piecesOfLine -> {
-                final var originAirport = createIfNullAirportFromRoutes(routes, piecesOfLine[0]);
-                final var destinationAirport = createIfNullAirportFromRoutes(routes, piecesOfLine[1]);
-
-                // add
-                originAirport.addNearAirports(destinationAirport, Integer.parseInt(piecesOfLine[2]));
+                airportInclusion.linkOriginAndDestination(piecesOfLine[0], piecesOfLine[1], piecesOfLine[2]);
             });
 
             return routes;

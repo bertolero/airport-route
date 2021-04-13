@@ -1,5 +1,6 @@
 package br.com.bertol.ui;
 
+import br.com.bertol.input.AirportInclusion;
 import br.com.bertol.search.RouteSearcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
@@ -23,10 +24,12 @@ public class RestServerHandler {
 
     private final ObjectMapper objectMapper;
 
+    private final AirportInclusion airportInclusion;
 
-    public RestServerHandler(RouteSearcher routeSearcher) {
+    public RestServerHandler(final RouteSearcher routeSearcher, final AirportInclusion airportInclusion) {
         this.routeSearcher = routeSearcher;
         this.objectMapper = new ObjectMapper();
+        this.airportInclusion = airportInclusion;
     }
 
     public void handlerSearchBestRoute(final HttpExchange exchange) throws IOException {
@@ -35,8 +38,10 @@ public class RestServerHandler {
             final var noNameText = "Anonymous";
             final var origin = params.getOrDefault("origin", List.of(noNameText)).stream().findFirst().orElse(noNameText);
             final var destination = params.getOrDefault("destination", List.of(noNameText)).stream().findFirst().orElse(noNameText);
-            final var respText = this.routeSearcher.getSearchBestRoute(origin, destination);
-            flushStream(exchange, 200, respText.get());
+            final var respText = this.routeSearcher.searchBestRoute(origin, destination);
+            final var response = new Response(respText.get());
+            final var responseString = this.objectMapper.writeValueAsString(response);
+            flushStream(exchange, 200, responseString);
         } else {
             exchange.sendResponseHeaders(405, -1);// 405 Method Not Allowed
         }
@@ -47,10 +52,9 @@ public class RestServerHandler {
         if ("POST".equals(exchange.getRequestMethod())) {
             try {
                 final var params = this.objectMapper.readValue(exchange.getRequestBody(), Input.class);
-                //final var respText = this.routeSearcher.getSearchBestRoute(origin, destination);
+                this.airportInclusion.linkOriginAndDestination(params.getOrigin(), params.getDestination(), params.getDistance());
                 final var inputString = this.objectMapper.writeValueAsString(params);
                 // headers
-                exchange.getResponseHeaders().add("Content-Type", "application/json");
                 flushStream(exchange, 200, inputString);
             } catch (final Exception e) {
                 final var errorMessage = e.getMessage();
@@ -63,6 +67,7 @@ public class RestServerHandler {
     }
 
     private void flushStream(final HttpExchange exchange, final int code, final String outputMessage) throws IOException {
+        exchange.getResponseHeaders().add("Content-Type", "application/json");
         exchange.sendResponseHeaders(code, outputMessage.getBytes().length);// 405 Method Not Allowed
         final var output = exchange.getResponseBody();
         output.write(outputMessage.getBytes());

@@ -31,7 +31,7 @@ public class CommandLine implements Runnable {
 
                 final var validInput = getSourceAndDestination(input);
 
-                final var result = routeSearcher.getSearchBestRoute(validInput[0], validInput[1]);
+                final var result = routeSearcher.searchBestRoute(validInput[0], validInput[1]);
 
                 System.out.format("best route: %s\n", result.get());
             }

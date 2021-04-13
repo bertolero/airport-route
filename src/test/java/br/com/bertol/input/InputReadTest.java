@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class InputReaderTest {
+public class InputReadTest {
 
     private final static String INPUT_FILE_NAME = "src/test/resources/input.csv";
 
@@ -20,19 +20,19 @@ public class InputReaderTest {
     @Test
     public void shouldReadValidInputFile() {
         // given
-        final var inputReader = new InputReader(INPUT_FILE_NAME);
+        final var inputReader = new InputRead(INPUT_FILE_NAME);
 
         // when
         final var routes = inputReader.getRoutes();
 
         // then
-        assertTrue(routes.getAirports().size() > 0);
+        assertEquals(5, routes.getAirports().size());
     }
 
     @Test
     public void shouldReadInputFileWithEmptyLineAndFail() {
         // given
-        final var inputReader = new InputReader(INPUT_FILE_WITH_EMPTY_LINE);
+        final var inputReader = new InputRead(INPUT_FILE_WITH_EMPTY_LINE);
 
         // when
         final var exception = assertThrows(RuntimeException.class, inputReader::getRoutes);
@@ -44,7 +44,7 @@ public class InputReaderTest {
     @Test
     public void shouldReadInputFileWithWrongDataAndFail() {
         // given
-        final var inputReader = new InputReader(INPUT_FILE_WRONG_DATA);
+        final var inputReader = new InputRead(INPUT_FILE_WRONG_DATA);
 
         // when
         final var exception = assertThrows(RuntimeException.class, inputReader::getRoutes);
@@ -57,7 +57,7 @@ public class InputReaderTest {
     @Test
     public void shouldReadInputFileWithWrongPathFail() {
         // given
-        final var inputReader = new InputReader(INPUT_FILE_WRONG_PATH);
+        final var inputReader = new InputRead(INPUT_FILE_WRONG_PATH);
 
         // when
         final var exception = assertThrows(RuntimeException.class, inputReader::getRoutes);

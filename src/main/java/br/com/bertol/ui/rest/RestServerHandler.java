@@ -1,6 +1,7 @@
 package br.com.bertol.ui.rest;
 
 import br.com.bertol.io.AirportInclusion;
+import br.com.bertol.io.WriteRoutesToFile;
 import br.com.bertol.search.RouteSearcher;
 import br.com.bertol.ui.rest.dto.AddNewConnectionRequest;
 import br.com.bertol.ui.rest.dto.SearchBestRouteResponse;
@@ -22,16 +23,20 @@ import static java.util.stream.Collectors.toList;
 
 public class RestServerHandler {
 
-    private final RouteSearcher routeSearcher;
-
     private final ObjectMapper objectMapper;
+
+    private final RouteSearcher routeSearcher;
 
     private final AirportInclusion airportInclusion;
 
-    public RestServerHandler(final RouteSearcher routeSearcher, final AirportInclusion airportInclusion) {
+    private final WriteRoutesToFile writeRoutesToFile;
+
+    public RestServerHandler(final RouteSearcher routeSearcher, final AirportInclusion airportInclusion,
+                             final WriteRoutesToFile writeRoutesToFile) {
         this.routeSearcher = routeSearcher;
         this.objectMapper = new ObjectMapper();
         this.airportInclusion = airportInclusion;
+        this.writeRoutesToFile = writeRoutesToFile;
     }
 
     public void handlerSearchBestRoute(final HttpExchange exchange) throws IOException {
@@ -59,6 +64,7 @@ public class RestServerHandler {
         if ("POST".equals(exchange.getRequestMethod())) {
             try {
                 final var params = this.objectMapper.readValue(exchange.getRequestBody(), AddNewConnectionRequest.class);
+                this.writeRoutesToFile.writeConnectionsToFile(params.getOrigin(), params.getDestination(), params.getDistance());
                 this.airportInclusion.linkOriginAndDestination(params.getOrigin(), params.getDestination(), params.getDistance());
                 final var inputString = this.objectMapper.writeValueAsString(params);
                 flushStream(exchange, 200, inputString);

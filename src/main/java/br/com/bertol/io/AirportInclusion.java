@@ -7,7 +7,7 @@ public class AirportInclusion {
 
     private final Routes routes;
 
-    public AirportInclusion(Routes routes) {
+    public AirportInclusion(final Routes routes) {
         this.routes = routes;
     }
 

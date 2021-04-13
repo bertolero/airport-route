@@ -1,7 +1,6 @@
 package br.com.bertol;
 
 import br.com.bertol.input.InputReader;
-import br.com.bertol.search.RouteCalculator;
 import br.com.bertol.search.RouteSearcher;
 
 import java.util.Scanner;
@@ -33,7 +32,7 @@ public class Router {
 
                 final var validInput = getSourceAndDestination(input);
 
-                final var result = routeSearcher.getSearchBesRoute(validInput[0], validInput[1]);
+                final var result = routeSearcher.getSearchBestRoute(validInput[0], validInput[1]);
 
                 System.out.format("best route: %s\n", result.get());
             }

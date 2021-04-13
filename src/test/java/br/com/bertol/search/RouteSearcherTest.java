@@ -15,7 +15,7 @@ public class RouteSearcherTest {
         final var routeSearcher = new RouteSearcher(routes);
 
         // when
-        final var result = routeSearcher.getSearchBesRoute("XXX", "CDG");
+        final var result = routeSearcher.getSearchBestRoute("XXX", "CDG");
 
         // then
         Assertions.assertEquals("Origin not found", result.get());
@@ -29,7 +29,7 @@ public class RouteSearcherTest {
         final var routeSearcher = new RouteSearcher(routes);
 
         // when
-        final var result = routeSearcher.getSearchBesRoute("POA", "XXX");
+        final var result = routeSearcher.getSearchBestRoute("POA", "XXX");
 
         // then
         Assertions.assertEquals("Destination not found", result.get());
@@ -43,23 +43,23 @@ public class RouteSearcherTest {
         final var routeSearcher = new RouteSearcher(routes);
 
         // when
-        final var result = routeSearcher.getSearchBesRoute("POA", "FTL");
+        final var result = routeSearcher.getSearchBestRoute("POA", "FTL");
 
         // then
         Assertions.assertEquals("Route not found", result.get());
     }
 
     @Test
-    public void shouldCalculateRouteFromPoaToCdg() {
+    public void shouldCalculateRouteFromBrcToCdg() {
         // given
         final var routes = routeTestUtils.getRoutesFromAirports();
 
         final var routeSearcher = new RouteSearcher(routes);
 
         // when
-        final var result = routeSearcher.getSearchBesRoute("GRU", "CDG");
+        final var result = routeSearcher.getSearchBestRoute("BrC", "CDG");
 
         // then
-        Assertions.assertEquals("GRU - BRC - SCL - ORL - CDG > 40", result.get());
+        Assertions.assertEquals("BRC - SCL - ORL - CDG > 30", result.get());
     }
 }

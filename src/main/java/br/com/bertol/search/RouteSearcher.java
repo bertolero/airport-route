@@ -13,7 +13,10 @@ public class RouteSearcher {
         this.routes = routes;
     }
 
-    public Result getSearchBesRoute(final String origin, final String destination) {
+    public Result getSearchBestRoute(final String origin, final String destination) {
+        // always start a new search as a new search
+        routes.clearRoutesToAllAirports();
+
         final var optionalOrigin = routes.getAirportByName(origin);
 
         final var optionalDestination = routes.getAirportByName(destination);

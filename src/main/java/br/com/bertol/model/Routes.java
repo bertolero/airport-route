@@ -21,8 +21,15 @@ public class Routes {
 
     public Optional<Airport> getAirportByName(final String airportName) {
         return airports.stream()
-                .filter(airport -> airport.getName().equals(airportName))
+                .filter(airport -> airport.getName().equalsIgnoreCase(airportName))
                 .findAny();
+    }
+
+    public void clearRoutesToAllAirports() {
+        airports.forEach(airport -> {
+            airport.getBestRoute().clear();
+            airport.setDistance(Integer.MAX_VALUE);
+        });
     }
 
     @Override

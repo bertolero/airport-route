@@ -1,4 +1,4 @@
-package br.com.bertol.search;
+package br.com.bertol.service.search;
 
 public enum SearchResult {
     DESTINATION_NOT_FOUND,

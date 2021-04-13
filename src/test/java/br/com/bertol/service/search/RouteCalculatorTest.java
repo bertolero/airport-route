@@ -1,4 +1,4 @@
-package br.com.bertol.search;
+package br.com.bertol.service.search;
 
 import br.com.bertol.RouteTestUtils;
 import org.junit.jupiter.api.Test;

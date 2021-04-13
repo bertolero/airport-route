@@ -1,6 +1,6 @@
 package br.com.bertol.ui.shell;
 
-import br.com.bertol.search.RouteSearcher;
+import br.com.bertol.service.search.RouteSearcher;
 
 import java.util.Scanner;
 

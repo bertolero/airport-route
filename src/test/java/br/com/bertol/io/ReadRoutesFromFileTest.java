@@ -1,7 +1,7 @@
 package br.com.bertol.io;
 
 import br.com.bertol.model.Routes;
-import br.com.bertol.service.AirportInclusion;
+import br.com.bertol.service.connections.AirportInclusion;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

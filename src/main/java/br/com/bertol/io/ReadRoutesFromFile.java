@@ -2,7 +2,7 @@ package br.com.bertol.io;
 
 import br.com.bertol.model.Airport;
 import br.com.bertol.model.Routes;
-import br.com.bertol.service.AirportInclusion;
+import br.com.bertol.service.connections.AirportInclusion;
 
 import java.io.File;
 import java.io.IOException;

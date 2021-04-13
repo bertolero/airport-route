@@ -1,8 +1,7 @@
 package br.com.bertol.ui.rest;
 
-import br.com.bertol.service.AirportInclusion;
-import br.com.bertol.io.WriteRoutesToFile;
-import br.com.bertol.search.RouteSearcher;
+import br.com.bertol.service.search.RouteSearcher;
+import br.com.bertol.service.connections.RefreshConnections;
 import br.com.bertol.ui.rest.dto.AddNewConnectionRequest;
 import br.com.bertol.ui.rest.dto.SearchBestRouteResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,16 +26,12 @@ public class RestServerHandler {
 
     private final RouteSearcher routeSearcher;
 
-    private final AirportInclusion airportInclusion;
+    private final RefreshConnections refreshConnections;
 
-    private final WriteRoutesToFile writeRoutesToFile;
-
-    public RestServerHandler(final RouteSearcher routeSearcher, final AirportInclusion airportInclusion,
-                             final WriteRoutesToFile writeRoutesToFile) {
+    public RestServerHandler(final RouteSearcher routeSearcher, final RefreshConnections refreshConnections) {
         this.routeSearcher = routeSearcher;
         this.objectMapper = new ObjectMapper();
-        this.airportInclusion = airportInclusion;
-        this.writeRoutesToFile = writeRoutesToFile;
+        this.refreshConnections = refreshConnections;
     }
 
     public void handlerSearchBestRoute(final HttpExchange exchange) throws IOException {
@@ -64,8 +59,7 @@ public class RestServerHandler {
         if ("POST".equals(exchange.getRequestMethod())) {
             try {
                 final var params = this.objectMapper.readValue(exchange.getRequestBody(), AddNewConnectionRequest.class);
-                this.writeRoutesToFile.writeConnectionsToFile(params.getOrigin(), params.getDestination(), params.getDistance());
-                this.airportInclusion.linkOriginAndDestination(params.getOrigin(), params.getDestination(), params.getDistance());
+                this.refreshConnections.doRefreshConnections(params);
                 final var inputString = this.objectMapper.writeValueAsString(params);
                 flushStream(exchange, 200, inputString);
             } catch (final Exception e) {

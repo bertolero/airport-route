@@ -1,6 +1,5 @@
 package br.com.bertol.ui;
 
-import br.com.bertol.input.InputReader;
 import br.com.bertol.search.RouteSearcher;
 
 import java.util.Scanner;
@@ -9,19 +8,16 @@ public class CommandLine implements Runnable {
 
     private static final String EXIT_COMMAND = "q";
 
-    private final String inputFile;
+    private final RouteSearcher routeSearcher;
 
-    public CommandLine(final String inputFile) {
-        this.inputFile = inputFile;
+    public CommandLine(final RouteSearcher routeSearcher) {
+        this.routeSearcher = routeSearcher;
     }
 
     @Override
     public void run() {
         final var scanner = new Scanner(System.in);
         try {
-            final var inputReader = new InputReader(inputFile);
-            final var routes = inputReader.getRoutes();
-            final var routeSearcher = new RouteSearcher(routes);
             System.out.println("Type 'q' to quit");
             while (true) {
                 System.out.print("please enter the route: ");

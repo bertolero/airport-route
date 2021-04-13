@@ -1,4 +1,4 @@
-package br.com.bertol.io;
+package br.com.bertol.service;
 
 import br.com.bertol.model.Airport;
 import br.com.bertol.model.Routes;

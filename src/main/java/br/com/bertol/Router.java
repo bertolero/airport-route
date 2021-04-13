@@ -1,6 +1,6 @@
 package br.com.bertol;
 
-import br.com.bertol.io.AirportInclusion;
+import br.com.bertol.service.AirportInclusion;
 import br.com.bertol.io.ReadRoutesFromFile;
 import br.com.bertol.io.WriteRoutesToFile;
 import br.com.bertol.model.Routes;

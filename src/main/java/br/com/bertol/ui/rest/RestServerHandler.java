@@ -1,6 +1,6 @@
 package br.com.bertol.ui.rest;
 
-import br.com.bertol.io.AirportInclusion;
+import br.com.bertol.service.AirportInclusion;
 import br.com.bertol.io.WriteRoutesToFile;
 import br.com.bertol.search.RouteSearcher;
 import br.com.bertol.ui.rest.dto.AddNewConnectionRequest;

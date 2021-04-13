@@ -29,11 +29,15 @@ public class CommandLine implements Runnable {
                     System.exit(0);
                 }
 
-                final var validInput = getSourceAndDestination(input);
+                final var isInputValid = validateInput(input);
 
-                final var result = routeSearcher.searchBestRoute(validInput[0], validInput[1]);
+                if (isInputValid) {
+                    final var validInput = getSourceAndDestination(input);
 
-                System.out.format("best route: %s\n", result.get());
+                    final var result = routeSearcher.searchBestRoute(validInput[0], validInput[1]);
+
+                    System.out.format("best route: %s\n", result.get());
+                }
             }
         } catch (final Exception e) {
             System.err.println(e.getMessage());
@@ -41,14 +45,20 @@ public class CommandLine implements Runnable {
         }
     }
 
-    private static String[] getSourceAndDestination(final String input) {
+    private boolean validateInput(final String input) {
         if (input == null || input.length() == 0 || !input.contains("-")) {
-            throw new RuntimeException("Input strung must be 'ORIGIN-DESTINATION'");
+            System.out.println("Input string must be 'ORIGIN-DESTINATION'");
+            return false;
         }
         final var sourceAndDestination = input.split("-");
         if (sourceAndDestination.length != 2) {
-            throw new RuntimeException("Input strung must be 'ORIGIN-DESTINATION'");
+            System.out.println("Input string must be 'ORIGIN-DESTINATION'");
+            return false;
         }
-        return sourceAndDestination;
+        return true;
+    }
+
+    private String[] getSourceAndDestination(final String input) {
+        return input.split("-");
     }
 }

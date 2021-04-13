@@ -1,15 +1,16 @@
 package br.com.bertol.search;
 
+import br.com.bertol.RouteTestUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static br.com.bertol.search.RouteTestUtils.BRC;
-import static br.com.bertol.search.RouteTestUtils.CDG;
-import static br.com.bertol.search.RouteTestUtils.CWB;
-import static br.com.bertol.search.RouteTestUtils.ORL;
-import static br.com.bertol.search.RouteTestUtils.POA;
-import static br.com.bertol.search.RouteTestUtils.SCL;
+import static br.com.bertol.RouteTestUtils.BRC;
+import static br.com.bertol.RouteTestUtils.CDG;
+import static br.com.bertol.RouteTestUtils.CWB;
+import static br.com.bertol.RouteTestUtils.ORL;
+import static br.com.bertol.RouteTestUtils.POA;
+import static br.com.bertol.RouteTestUtils.SCL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RouteCalculatorTest {

@@ -1,5 +1,6 @@
 package br.com.bertol.search;
 
+import br.com.bertol.RouteTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

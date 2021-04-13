@@ -25,6 +25,16 @@ public class Routes {
                 .findAny();
     }
 
+    public boolean connectionExist(final String origin, final String destination) {
+        final var originAirport = getAirportByName(origin);
+        final var destinationAirport = getAirportByName(destination);
+
+        if(originAirport.isEmpty() || destinationAirport.isEmpty()) {
+            return false;
+        }
+        return originAirport.get().getAdjacentAirports().containsKey(destinationAirport.get());
+    }
+
     public void clearRoutesToAllAirports() {
         airports.forEach(airport -> {
             airport.getBestRoute().clear();

@@ -1,27 +1,27 @@
-package br.com.bertol.search;
+package br.com.bertol;
 
 import br.com.bertol.model.Airport;
 import br.com.bertol.model.Routes;
 
-class RouteTestUtils {
+public class RouteTestUtils {
 
-    static final String CWB = "CWB";
+    public static final String CWB = "CWB";
 
-    static final String GRU = "GRU";
+    public static final String GRU = "GRU";
 
-    static final String BRC = "BRC";
+    public static final String BRC = "BRC";
 
-    static final String ORL = "ORL";
+    public static final String ORL = "ORL";
 
-    static final String SCL = "SCL";
+    public static final String SCL = "SCL";
 
-    static final String CDG = "CDG";
+    public static final String CDG = "CDG";
 
-    static final String POA = "POA";
+    public static final String POA = "POA";
 
-    static final String FTL = "FTL";
+    public static final String FTL = "FTL";
 
-    Routes getRoutesFromAirports() {
+    public Routes getRoutesFromAirports() {
         final var cwb = new Airport(CWB);
         final var gru = new Airport(GRU);
         final var brc = new Airport(BRC);

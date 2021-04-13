@@ -1,4 +1,4 @@
-package br.com.bertol.ui;
+package br.com.bertol.ui.rest;
 
 public class Response {
     private final String route;

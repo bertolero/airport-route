@@ -1,4 +1,4 @@
-package br.com.bertol.ui;
+package br.com.bertol.ui.rest;
 
 import br.com.bertol.input.AirportInclusion;
 import br.com.bertol.search.RouteSearcher;

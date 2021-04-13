@@ -3,12 +3,11 @@ package br.com.bertol;
 import br.com.bertol.input.AirportInclusion;
 import br.com.bertol.input.InputRead;
 import br.com.bertol.search.RouteSearcher;
-import br.com.bertol.ui.CommandLine;
-import br.com.bertol.ui.RestServerHandler;
-import com.sun.net.httpserver.HttpServer;
+import br.com.bertol.ui.shell.CommandLine;
+import br.com.bertol.ui.rest.RestServer;
+import br.com.bertol.ui.rest.RestServerHandler;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 
 public class Router {
 
@@ -22,15 +21,12 @@ public class Router {
         final var routes = inputReader.getRoutes();
         final var routeSearcher = new RouteSearcher(routes);
         final var airportInclusion = new AirportInclusion(routes);
+        final var handler = new RestServerHandler(routeSearcher, airportInclusion);
 
         final var commandLine = new Thread(new CommandLine(routeSearcher));
         commandLine.start();
 
-        final var handler = new RestServerHandler(routeSearcher, airportInclusion);
-        final var server = HttpServer.create(new InetSocketAddress(8080), 0);
-        server.createContext("/api/searchBestRoute", handler::handlerSearchBestRoute);
-        server.createContext("/api/addNewConnection", handler::handlerAddNewConnection);
-        server.setExecutor(null); // creates a default executor
-        server.start();
+        final var restServer = new RestServer(handler);
+        restServer.startServer();
     }
 }

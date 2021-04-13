@@ -1,4 +1,4 @@
-package br.com.bertol.ui;
+package br.com.bertol.ui.shell;
 
 import br.com.bertol.search.RouteSearcher;
 

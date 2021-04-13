@@ -1,4 +1,4 @@
-package br.com.bertol.ui;
+package br.com.bertol.ui.rest;
 
 public class Input {
     private String origin;

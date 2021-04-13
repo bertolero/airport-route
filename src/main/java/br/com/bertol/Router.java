@@ -1,7 +1,7 @@
 package br.com.bertol;
 
 import br.com.bertol.io.AirportInclusion;
-import br.com.bertol.io.InputRead;
+import br.com.bertol.io.ReadRoutesFromFile;
 import br.com.bertol.io.WriteRoutesToFile;
 import br.com.bertol.model.Routes;
 import br.com.bertol.search.RouteSearcher;
@@ -22,7 +22,7 @@ public class Router {
         final var routes = new Routes();
         final var airportInclusion = new AirportInclusion(routes);
         final var routeSearcher = new RouteSearcher(routes);
-        final var inputReader = new InputRead(args[0], airportInclusion);
+        final var inputReader = new ReadRoutesFromFile(args[0], airportInclusion);
         final var writerRoutesToFile = new WriteRoutesToFile(args[0], routes);
         final var handler = new RestServerHandler(routeSearcher, airportInclusion, writerRoutesToFile);
 

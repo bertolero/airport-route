@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class InputReadTest {
+public class ReadRoutesFromFileTest {
 
     private final static String INPUT_FILE_NAME = "src/test/resources/input.csv";
 
@@ -22,7 +22,7 @@ public class InputReadTest {
         // given
         final var routes = new Routes();
         final var airportInclusion = new AirportInclusion(routes);
-        final var inputReader = new InputRead(INPUT_FILE_NAME, airportInclusion);
+        final var inputReader = new ReadRoutesFromFile(INPUT_FILE_NAME, airportInclusion);
 
         // when
         inputReader.loadRoutesFromFile();
@@ -36,7 +36,7 @@ public class InputReadTest {
         // given
         final var routes = new Routes();
         final var airportInclusion = new AirportInclusion(routes);
-        final var inputReader = new InputRead(INPUT_FILE_WITH_EMPTY_LINE, airportInclusion);
+        final var inputReader = new ReadRoutesFromFile(INPUT_FILE_WITH_EMPTY_LINE, airportInclusion);
 
         // when
         final var exception = assertThrows(RuntimeException.class, inputReader::loadRoutesFromFile);
@@ -50,7 +50,7 @@ public class InputReadTest {
         // given
         final var routes = new Routes();
         final var airportInclusion = new AirportInclusion(routes);
-        final var inputReader = new InputRead(INPUT_FILE_WRONG_DATA, airportInclusion);
+        final var inputReader = new ReadRoutesFromFile(INPUT_FILE_WRONG_DATA, airportInclusion);
 
         // when
         final var exception = assertThrows(RuntimeException.class, inputReader::loadRoutesFromFile);
@@ -65,7 +65,7 @@ public class InputReadTest {
         // given
         final var routes = new Routes();
         final var airportInclusion = new AirportInclusion(routes);
-        final var inputReader = new InputRead(INPUT_FILE_WRONG_PATH, airportInclusion);
+        final var inputReader = new ReadRoutesFromFile(INPUT_FILE_WRONG_PATH, airportInclusion);
 
         // when
         final var exception = assertThrows(RuntimeException.class, inputReader::loadRoutesFromFile);

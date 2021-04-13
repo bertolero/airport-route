@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class InputRead {
+public class ReadRoutesFromFile {
 
     private final String fileName;
 
     private final AirportInclusion airportInclusion;
 
-    public InputRead(final String fileName, final AirportInclusion airportInclusion) {
+    public ReadRoutesFromFile(final String fileName, final AirportInclusion airportInclusion) {
         this.fileName = fileName;
         this.airportInclusion = airportInclusion;
     }

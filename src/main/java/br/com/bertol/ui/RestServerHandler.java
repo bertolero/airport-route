@@ -34,14 +34,19 @@ public class RestServerHandler {
 
     public void handlerSearchBestRoute(final HttpExchange exchange) throws IOException {
         if ("GET".equals(exchange.getRequestMethod())) {
-            final var params = splitQuery(exchange.getRequestURI().getRawQuery());
-            final var noNameText = "Anonymous";
-            final var origin = params.getOrDefault("origin", List.of(noNameText)).stream().findFirst().orElse(noNameText);
-            final var destination = params.getOrDefault("destination", List.of(noNameText)).stream().findFirst().orElse(noNameText);
-            final var respText = this.routeSearcher.searchBestRoute(origin, destination);
-            final var response = new Response(respText.get());
-            final var responseString = this.objectMapper.writeValueAsString(response);
-            flushStream(exchange, 200, responseString);
+            try {
+                final var params = splitQuery(exchange.getRequestURI().getRawQuery());
+                final var noNameText = "Anonymous";
+                final var origin = params.getOrDefault("origin", List.of(noNameText)).stream().findFirst().orElse(noNameText);
+                final var destination = params.getOrDefault("destination", List.of(noNameText)).stream().findFirst().orElse(noNameText);
+                final var respText = this.routeSearcher.searchBestRoute(origin, destination);
+                final var response = new Response(respText.get());
+                final var responseString = this.objectMapper.writeValueAsString(response);
+                flushStream(exchange, 200, responseString);
+            } catch (final Exception e) {
+                final var errorMessage = e.getMessage();
+                flushStream(exchange, 500, errorMessage);
+            }
         } else {
             exchange.sendResponseHeaders(405, -1);// 405 Method Not Allowed
         }
@@ -54,7 +59,6 @@ public class RestServerHandler {
                 final var params = this.objectMapper.readValue(exchange.getRequestBody(), Input.class);
                 this.airportInclusion.linkOriginAndDestination(params.getOrigin(), params.getDestination(), params.getDistance());
                 final var inputString = this.objectMapper.writeValueAsString(params);
-                // headers
                 flushStream(exchange, 200, inputString);
             } catch (final Exception e) {
                 final var errorMessage = e.getMessage();

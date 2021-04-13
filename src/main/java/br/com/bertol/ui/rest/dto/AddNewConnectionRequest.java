@@ -1,4 +1,4 @@
-package br.com.bertol.ui.rest;
+package br.com.bertol.ui.rest.payload;
 
 public class AddNewConnectionRequest {
     private String origin;

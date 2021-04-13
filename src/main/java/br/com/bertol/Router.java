@@ -1,7 +1,8 @@
 package br.com.bertol;
 
-import br.com.bertol.input.AirportInclusion;
-import br.com.bertol.input.InputRead;
+import br.com.bertol.io.AirportInclusion;
+import br.com.bertol.io.InputRead;
+import br.com.bertol.model.Routes;
 import br.com.bertol.search.RouteSearcher;
 import br.com.bertol.ui.shell.CommandLine;
 import br.com.bertol.ui.rest.RestServer;
@@ -17,11 +18,14 @@ public class Router {
             System.exit(1);
         }
 
-        final var inputReader = new InputRead(args[0]);
-        final var routes = inputReader.getRoutes();
-        final var routeSearcher = new RouteSearcher(routes);
+        final var routes = new Routes();
         final var airportInclusion = new AirportInclusion(routes);
+        final var routeSearcher = new RouteSearcher(routes);
+        final var inputReader = new InputRead(args[0], airportInclusion);
         final var handler = new RestServerHandler(routeSearcher, airportInclusion);
+
+        // load airports
+        inputReader.loadRoutesFromFile();
 
         final var commandLine = new Thread(new CommandLine(routeSearcher));
         commandLine.start();

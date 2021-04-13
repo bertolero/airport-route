@@ -1,4 +1,4 @@
-package br.com.bertol.input;
+package br.com.bertol.io;
 
 import br.com.bertol.model.Airport;
 import br.com.bertol.model.Routes;
@@ -12,14 +12,15 @@ public class InputRead {
 
     private final String fileName;
 
-    public InputRead(final String fileName) {
+    private final AirportInclusion airportInclusion;
+
+    public InputRead(final String fileName, final AirportInclusion airportInclusion) {
         this.fileName = fileName;
+        this.airportInclusion = airportInclusion;
     }
 
-    public Routes getRoutes() {
+    public Routes loadRoutesFromFile() {
         final var routes = new Routes();
-
-        final var airportInclusion = new AirportInclusion(routes);
 
         final var path = Path.of(new File(this.fileName).toURI());
 

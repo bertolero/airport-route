@@ -19,6 +19,8 @@ class RouteTestUtils {
 
     static final String POA = "POA";
 
+    static final String FTL = "FTL";
+
     Routes getRoutesFromAirports() {
         final var cwb = new Airport(CWB);
         final var gru = new Airport(GRU);
@@ -27,6 +29,7 @@ class RouteTestUtils {
         final var scl = new Airport(SCL);
         final var cdg = new Airport(CDG);
         final var poa = new Airport(POA);
+        final var ftl = new Airport(FTL);
 
         cwb.addNearAirports(gru, 5);
         cwb.addNearAirports(poa, 5);
@@ -44,6 +47,8 @@ class RouteTestUtils {
 
         poa.addNearAirports(brc, 9);
 
+        ftl.addNearAirports(orl, 15);
+
         final var routes = new Routes();
 
         routes.addAirport(cwb);
@@ -53,6 +58,7 @@ class RouteTestUtils {
         routes.addAirport(scl);
         routes.addAirport(cdg);
         routes.addAirport(poa);
+        routes.addAirport(ftl);
 
         return routes;
     }

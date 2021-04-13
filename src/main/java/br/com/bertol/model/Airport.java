@@ -72,4 +72,12 @@ public class Airport {
                 ", adjacentAirports=" + adjacentAirports +
                 '}';
     }
+
+    public String getReadableRoute() {
+        final String bestRouteAsString = bestRoute.stream()
+                .map(Airport::getName)
+                .collect(Collectors.joining(" - ", "", String.format(" - %s", getName())));
+
+        return String.format("%s > %d", bestRouteAsString, getDistance());
+    }
 }

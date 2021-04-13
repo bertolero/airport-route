@@ -1,4 +1,4 @@
-package br.com.bertol.ui.rest.payload;
+package br.com.bertol.ui.rest.dto;
 
 public class SearchBestRouteResponse {
     private final String route;

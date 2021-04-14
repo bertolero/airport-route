@@ -14,7 +14,7 @@ public class RestServer {
     }
 
     public void startServer() throws IOException {
-        final var server = HttpServer.create(new InetSocketAddress(8080), 0);
+        final var server = HttpServer.create(new InetSocketAddress(10150), 0);
         server.createContext("/api/searchBestRoute", handler::handlerSearchBestRoute);
         server.createContext("/api/addNewConnection", handler::handlerAddNewConnection);
         server.setExecutor(null);
